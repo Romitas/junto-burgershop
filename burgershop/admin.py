@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django import forms
 from django.contrib import admin
 from .models import Item, Category
 from .models import Order, OrderRow
@@ -34,8 +35,9 @@ class OrderRowInline(admin.StackedInline):
     extra = 1
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('restaurant', 'waiter', 'datetime', 'cost')
+    list_display = ('restaurant', 'waiter', 'datetime', 'cost', 'status_active', 'status_purchased')
     inlines = [OrderRowInline]
+#    form = OrderForm
 
 
 admin.site.register(Item, ItemAdmin)

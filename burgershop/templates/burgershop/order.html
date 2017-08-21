@@ -1,0 +1,14 @@
+
+<h1>Order {{order.pk}} </h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'burgershop:login_validate' %}?next={{redirect_url}}" method="post">
+    {% csrf_token %}
+    Username: <br>
+    <input type="textbox" name="username" id="username" value="" /> <br>
+    Password: <br>
+    <input type="password" name="password" id="password" value="" /> <br>
+    <br>
+    <input type="submit" value="Submit" /> <br>
+</form>
