@@ -17,17 +17,9 @@ router.register(r'menu', views.CategoryViewSet)
 router.register(r'orders', views.OrderViewSet)
 router.register(r'orderrows', views.OrderRowViewSet)
 router.register(r'items', views.ItemViewSet)
-#router.register(r'menu', views.menu)
 
 urlpatterns = [
-#        url(r'^$', views.api_root, name='index'),
-#        url(r'^orders/?$', views.OrderList.as_view(), name='order_list'),
-#        url(r'^orders/(?P<pk>[0-9]+)/?$', views.OrderDetail.as_view(), name='order_detail'),
-#        url(r'^orderrows/?$', views.OrderRowList.as_view(), name='orderrow_list'),
-#        url(r'^orderrows/(?P<pk>[0-9]+)/?$', views.OrderRowDetail.as_view(), name='orderrow_detail'),
-#        url(r'^', include(router.urls), name='index'),
         url(r'^', include(router.urls), name='index'),
-#        url(r'menu/?$', views.menu, name='menu'),
         url(r'auth-api-token/', authtoken_views.obtain_auth_token),
         url(r'login/?$', views.login_form, name='login_form'),
         url(r'login/check/?$', views.login_validate, name='login_validate'),
