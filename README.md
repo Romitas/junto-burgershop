@@ -21,5 +21,6 @@
 - Orders can be created, modified or deleted (using POST, PUT and DELETE accordingly)
 - OrderRows and Items could be viewed in API but not modified. If you have to, use administration tools
 - To add/edit/delete Restaurants and Waiters, use administration tools
+- Do not use REST Framework HTML form to add/edit orders. Even if viewing in browser, use Raw data instead - HTML form cannot handle nested structures
 
 Denis Surdeykin, surdeykin.denis@gmail.com, 2017
