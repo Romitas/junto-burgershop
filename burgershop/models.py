@@ -11,6 +11,8 @@ from json import loads
 
 @python_2_unicode_compatible
 class Category(models.Model):
+    """Category: contains subcategories and items"""
+
     parent_category = models.ForeignKey("self", blank=True, null=True, related_name='subcategories')
     name = models.CharField(max_length=200)
 
@@ -26,7 +28,9 @@ class Category(models.Model):
             return '%(parent)s/%(name)s' % {'parent': self.parent_category.get_name(full_path=True), 'name': self.name}
 
     def as_dict(self, json=False):
-        """Return class dict representation, either basic (default) or JSON serializable"""
+        """Return class dict representation, either basic (default) or JSON serializable
+        UPD: Outdated, not used
+        """
 
         parent_id = None
         if self.parent_category:
@@ -51,7 +55,9 @@ class Item(models.Model):
     price = models.DecimalField(default=0.0, max_digits=6, decimal_places=2)
 
     def as_dict(self, json=False):
-        """Return class dict representation, either basic (default) or JSON serializable"""
+        """Return class dict representation, either basic (default) or JSON serializable
+        UPD: Outdated, not used
+        """
 
         price = float(self.price) if json else self.price
         category = self.category.pk if json else self.category
@@ -68,7 +74,8 @@ class Item(models.Model):
 
 @python_2_unicode_compatible
 class Restaurant(models.Model):
-    city = models.CharField(max_length=20, default='Moscow') # Either 'Moscow' or 'St.Petersburg'
+    """Restaurant: city and address"""
+    city = models.CharField(max_length=20, default='Moscow') # Either 'Moscow' or 'St.Petersburg' TODO: Make a it a dropdown choice?
     address = models.CharField(max_length=300)
 
     def __str__(self):
@@ -76,6 +83,7 @@ class Restaurant(models.Model):
 
 @python_2_unicode_compatible
 class Waiter(models.Model):
+    """Waiter: name and restaurant"""
     name = models.CharField(max_length=200)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.SET_NULL, default=None, blank=True, null=True) # since waiters (theoretically) could transfer to other restaurants
 
@@ -84,6 +92,7 @@ class Waiter(models.Model):
 
 @python_2_unicode_compatible
 class Order(models.Model):
+    """Order: contains order time, status, restaurant and waiter ids, and a list of order rows"""
     datetime = models.DateTimeField('Order time', auto_now_add=True)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     waiter = models.ForeignKey(Waiter, on_delete=models.CASCADE)
@@ -110,6 +119,8 @@ class Order(models.Model):
 
 @python_2_unicode_compatible
 class OrderRow(models.Model):
+    """Order row: basically item plus quantity"""
+
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)

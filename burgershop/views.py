@@ -55,6 +55,7 @@ def login_validate(request):
 def menu(request):
     """
     Return a JSON menu. Requires being logged in
+    UPD: Outdated, not used
     """
 
     category_list = Category.objects.all()
